@@ -1,0 +1,70 @@
+---
+title: "SUD clinics WISC" 
+author: "Madison"
+date: "`r lubridate::today()`"
+format: 
+  html:
+    embed-resources: true
+    toc: true 
+    toc_depth: 4
+editor_options: 
+  chunk_output_type: console
+---
+## Notes
+
+## Setup
+
+```{r}
+#| include: false
+library(skimr)
+library(tidyverse) 
+library(knitr)
+library(kableExtra, exclude = c("group_rows"))
+devtools::source_url("https://github.com/jjcurtin/lab_support/blob/main/fun_eda.R?raw=true")
+devtools::source_url("https://github.com/jjcurtin/lab_support/blob/main/format_path.R?raw=true")
+devtools::source_url("https://github.com/jjcurtin/lab_support/blob/main/fun_plots.R?raw=true")
+theme_set(theme_classic())
+options(dplyr.print_max=Inf)
+```
+
+```{r}
+d <- readxl::read_xlsx("sud_wisc.xlsx") |> slice(-1) |> janitor::clean_names() |> select(legal_name, county) |> 
+  glimpse()
+```
+```{r}
+d <- d |> 
+  mutate(county = str_remove(county, "^County:\\s*")) |> 
+  glimpse()
+
+# Remove rows where county is NA or empty
+d_clean <- d |> 
+  filter(!is.na(county) & county != "")
+
+# Count the number of unique clinics per county
+clinic_counts <- d_clean |> 
+  group_by(county) |> 
+  summarize(clinic_count = n_distinct(legal_name), .groups = "drop")
+```
+
+```{r}
+write_csv(clinic_counts, "sud_clinics_wisc.csv")
+```
+
+## Read in data for hospital attributable deaths 
+
+```{r}
+hosp <- read_csv("alc_county.csv", show_col_types = FALSE) |> janitor::clean_names() |> filter(subtopic == "Hospitalizations") |> filter(year == 2022) |> filter(measure == "Crude Rate per 100,000") |>  select(county, crude_rate_per_100_000) |> glimpse()
+```
+
+Verify 72 counties 
+```{r}
+hosp |> distinct(county) |> print() 
+```
+
+Write out file for Tableau
+
+```{r}
+write_csv(hosp, "hospt_alc.csv")
+```
+
+
