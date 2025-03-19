@@ -1,7 +1,7 @@
 # Substance Use Treatment in Wisconsin
 
 ## Description
-This project utilises tableau and R to identify disproportionate substance use treatment in Wisconsin. 
+This project utilizes tableau and R to visualize disproportionate substance use treatment in Wisconsin. 
 
 ## Data Sources
 Centers for Disease Control and Prevention. (2022). Prevalence of binge drinking among U.S. adults 18 and older, by state — Behavioral Risk Factor Surveillance System, 2022. Retrieved November 25, 2024, from [CDC](https://www.cdc.gov/alcohol/excessive-drinking-data/index.html)
