@@ -11,6 +11,6 @@ Wisconsin Department of Health Services. (n.d.). Alcohol and other drug abuse (A
 Wisconsin Department of Health Services. (n.d.). Alcohol: Wisconsin Environmental Public Health Tracking. Retrieved November 25, 2024, from [DHS](https://www.dhs.wisconsin.gov/epht/alcohol.html)
 
 ## Repository Structure
-- `data/` - Contains the datasets (`heart_disease.csv`).
+- `data/` - Contains the datasets 
 - `analysis/` - Contains the Tableau file and .qmd file. 
 - `README.md` - Overview of the project.
